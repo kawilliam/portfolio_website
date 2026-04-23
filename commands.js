@@ -26,14 +26,14 @@ function cmdAbout() {
   print(`<span class="bright">READING FILE: ABOUT.TXT</span>`);
   printDivider();
   print(`  NAME      : Kyle A. Williamson`);
-  print(`  TITLE     : Software Engineer`);
+  print(`  TITLE     : Engineering Student`);
   print(`  SCHOOL    : York University — Lassonde School of Engineering`);
   print(`  PROGRAM   : Software Engineering, Data Stream`);
   print(`  YEAR      : 4th Year | Expected Graduation: 2027`);
   print(`  FOCUS     : Embedded Firmware, Formal Methods, Software Dev`);
   print(`  WORK      : Security Professional @ North Shield Security Group`);
   printBlank();
-  print(`  INTERESTS : Cars, Fragrances, Basketball, Film`);
+  print(`  INTERESTS : Hardware, Math, Basketball, Physics`);
   printBlank();
   print(`  I build reliable systems — from low-level firmware to`);
   print(`  full-stack applications. I use formal verification methods`);
@@ -216,11 +216,11 @@ function cmdResume() {
         printBlank();
         print(`  <span class="bright">Kyle A. Williamson</span>`);
         print(`  Engineer. Thinker. Problem Solver.`);
-        print(`  york.ca | github.com/KyleWilliamson`);
+        print(`  york.ca | github.com/kawilliamson`);
         printBlank();
         print(`  EDUCATION`);
         print(`  York University — BEng Software Engineering, Data Stream`);
-        print(`  Expected 2027 | GPA: [Your GPA]`);
+        print(`  Expected 2027`);
         printBlank();
         print(`  EXPERIENCE`);
         print(`  Security Professional — North Shield Security Group`);
@@ -309,10 +309,10 @@ function cmdContact() {
 function cmdStatus() {
   print(`<span class="bright">READING FILE: STATUS.SYS</span>`);
   printDivider();
-  print(`  AVAILABILITY  : <span class="success">Open to Co-op Opportunities — 2025</span>`);
+  print(`  AVAILABILITY  : <span class="success">Open to Co-op Opportunities — 2026</span>`);
   print(`  LOCATION      : Richmond Hill, Ontario, Canada`);
   print(`  WORK TYPE     : Internship / Co-op / Contract`);
-  print(`  INTERESTS     : Embedded Firmware, Software Dev, Formal Methods`);
+  print(`  INTERESTS     : Embedded, Software, Hardware`);
   print(`  RESPONSE TIME : Within 24 hours`);
   printDivider();
   print(`  Type <span class="bright">CONTACT</span> to reach out.`);

@@ -19,6 +19,49 @@ function playClick() {
   } catch (e) {}
 }
 
+// === BOOT BEEP SEQUENCE ===
+function playBootSound() {
+  try {
+    if (!audioCtx) audioCtx = new AudioContext();
+
+    function beep(frequency, startTime, duration, volume = 0.3) {
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      oscillator.type = "square";
+      oscillator.frequency.setValueAtTime(frequency, startTime);
+      gainNode.gain.setValueAtTime(volume, startTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+      oscillator.start(startTime);
+      oscillator.stop(startTime + duration);
+    }
+
+    const t = audioCtx.currentTime;
+
+    // Classic POST beep sequence
+    beep(440, t, 0.08);
+    beep(880, t + 0.1, 0.08);
+    beep(660, t + 0.2, 0.08);
+    beep(1320, t + 0.3, 0.15);
+
+    // HDD spin-up simulation
+    const spinOsc = audioCtx.createOscillator();
+    const spinGain = audioCtx.createGain();
+    spinOsc.connect(spinGain);
+    spinGain.connect(audioCtx.destination);
+    spinOsc.type = "sawtooth";
+    spinOsc.frequency.setValueAtTime(60, t + 0.6);
+    spinOsc.frequency.linearRampToValueAtTime(180, t + 2.0);
+    spinGain.gain.setValueAtTime(0.08, t + 0.6);
+    spinGain.gain.linearRampToValueAtTime(0.02, t + 2.0);
+    spinGain.gain.exponentialRampToValueAtTime(0.0001, t + 2.2);
+    spinOsc.start(t + 0.6);
+    spinOsc.stop(t + 2.2);
+
+  } catch (e) {}
+}
+
 // === BOOT CONFIGURATION ===
 const BOOT_LINES = [
   { text: "KYLE CORP BIOS v6.22", delay: 0, class: "bright" },
@@ -32,7 +75,7 @@ const BOOT_LINES = [
   { text: "Detecting hardware...", delay: 200 },
   { text: "  Primary Drive   : C:\\KYLE\\PORTFOLIO", delay: 150 },
   { text: "  Co-Processor    : Formal Methods Engine (TLA+)", delay: 150 },
-  { text: "  Network Adapter : github.com/KyleWilliamson [CONNECTED]", delay: 150 },
+  { text: "  Network Adapter : github.com/kawilliam [CONNECTED]", delay: 150 },
   { text: "  Sound Blaster   : ENABLED", delay: 150 },
   { text: "", delay: 100 },
   { text: "Checking system invariants...", delay: 300 },
@@ -70,6 +113,7 @@ const POST_SPLASH = [
 
 // === BOOT RUNNER ===
 function runBoot() {
+  playBootSound();
   const bootScreen = document.getElementById("boot-screen");
   let totalDelay = 0;
 
