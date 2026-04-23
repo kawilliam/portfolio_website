@@ -45,17 +45,18 @@ document.getElementById("cmd-input").addEventListener("keydown", (e) => {
 
     // Echo the command in output
     if (raw !== "") {
-      print(`C:\\KYLE> ${raw}`, "dim");
       state.history.unshift(raw);
       state.historyIndex = -1;
     }
 
     input.value = "";
-    printBlank();
 
     if (raw === "") return;
 
-    // Route to command handler
+    // Clear then route to command handler
+    clearOutput();
+    print(`C:\\KYLE> ${raw}`, "dim");
+    printBlank();
     handleCommand(cmd, raw);
 
     printBlank();

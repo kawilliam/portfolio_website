@@ -346,11 +346,15 @@ function cmdQuickview() {
 // =============================================
 function cmdSoundOn() {
   state.soundEnabled = true;
+  if (window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5);
+  if (window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.018, audioCtx.currentTime + 0.5);
   print(`  <span class="success">Sound enabled.</span>`);
 }
 
 function cmdSoundOff() {
   state.soundEnabled = false;
+  if (window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+  if (window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
   print(`  <span class="dim">Sound disabled.</span>`);
 }
 

@@ -45,19 +45,53 @@ function playBootSound() {
     beep(660, t + 0.2, 0.08);
     beep(1320, t + 0.3, 0.15);
 
-    // HDD spin-up simulation
+  } catch (e) {}
+}
+
+// === AMBIENT DISK HUM ===
+function startAmbientDisk() {
+  try {
+    if (!audioCtx) audioCtx = new AudioContext();
+    const t = audioCtx.currentTime;
+
+    // Base disk hum
     const spinOsc = audioCtx.createOscillator();
     const spinGain = audioCtx.createGain();
     spinOsc.connect(spinGain);
     spinGain.connect(audioCtx.destination);
-    spinOsc.type = "sawtooth";
-    spinOsc.frequency.setValueAtTime(60, t + 0.6);
-    spinOsc.frequency.linearRampToValueAtTime(180, t + 2.0);
-    spinGain.gain.setValueAtTime(0.08, t + 0.6);
-    spinGain.gain.linearRampToValueAtTime(0.02, t + 2.0);
-    spinGain.gain.exponentialRampToValueAtTime(0.0001, t + 2.2);
-    spinOsc.start(t + 0.6);
-    spinOsc.stop(t + 2.2);
+    spinOsc.type = "triangle";
+    spinOsc.frequency.setValueAtTime(75, t);
+    spinGain.gain.setValueAtTime(0.0001, t);
+    spinGain.gain.linearRampToValueAtTime(0.04, t + 1.5);
+    spinOsc.start(t);
+
+    // Flutter layer
+    const flutterOsc = audioCtx.createOscillator();
+    const flutterGain = audioCtx.createGain();
+    flutterOsc.connect(flutterGain);
+    flutterGain.connect(audioCtx.destination);
+    flutterOsc.type = "sine";
+    flutterOsc.frequency.setValueAtTime(160, t);
+    flutterGain.gain.setValueAtTime(0.0001, t);
+    flutterGain.gain.linearRampToValueAtTime(0.050, t + 1.5);
+    flutterOsc.start(t);
+
+    // Subtle pitch variation to simulate seeking
+    function seekLoop() {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const freq = 110 + Math.random() * 40;
+      spinOsc.frequency.linearRampToValueAtTime(freq, now + 2.0);
+      flutterOsc.frequency.linearRampToValueAtTime(freq + 60, now + 2.0);
+      setTimeout(seekLoop, 2000 + Math.random() * 1500);
+    }
+    seekLoop();
+
+    // Store refs so sound on/off can control it
+    window._diskOsc = spinOsc;
+    window._diskGain = spinGain;
+    window._flutterOsc = flutterOsc;
+    window._flutterGain = flutterGain;
 
   } catch (e) {}
 }
@@ -151,7 +185,6 @@ function runBoot() {
 
     // Hand off to shell after splash
     setTimeout(() => {
-      bootScreen.style.display = "none";
       const shell = document.getElementById("shell");
       shell.classList.remove("hidden");
       document.getElementById("cmd-input").focus();
@@ -165,7 +198,8 @@ function isRecruiterMode() {
   return window.location.search.includes("recruiter");
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("click", function bootOnClick() {
+  document.removeEventListener("click", bootOnClick);
   if (isRecruiterMode()) {
     document.getElementById("boot-screen").style.display = "none";
     const shell = document.getElementById("shell");
@@ -179,4 +213,5 @@ window.addEventListener("DOMContentLoaded", () => {
   } else {
     runBoot();
   }
+  startAmbientDisk();
 });
