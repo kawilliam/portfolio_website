@@ -1,0 +1,197 @@
+/* === RESET & BASE === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #0a0800;
+  color: #ffb000;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow: hidden;
+  cursor: text;
+}
+
+/* === CRT SCANLINES === */
+#crt-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.15) 3px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+}
+
+/* === CRT VIGNETTE === */
+#crt-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* === TERMINAL WRAPPER === */
+#terminal {
+  width: 100%;
+  height: 100%;
+  padding: 24px 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === BOOT SCREEN === */
+#boot-screen {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* === SHELL (hidden until boot done) === */
+#shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+#shell.hidden {
+  display: none;
+}
+
+/* === OUTPUT HISTORY === */
+#output {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-bottom: 8px;
+}
+
+/* Hide scrollbar but keep scroll */
+#output::-webkit-scrollbar {
+  width: 4px;
+}
+#output::-webkit-scrollbar-thumb {
+  background: #ffb00044;
+  border-radius: 2px;
+}
+
+/* === INPUT LINE === */
+#input-line {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+  border-top: 1px solid #ffb00022;
+}
+
+#prompt {
+  color: #ffb000;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#cmd-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffb000;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  caret-color: #ffb000;
+  width: 100%;
+  line-height: 1.6;
+}
+
+/* === TEXT UTILITIES === */
+.dim {
+  color: #7a5500;
+}
+
+.bright {
+  color: #ffd060;
+}
+
+.error {
+  color: #ff4422;
+}
+
+.success {
+  color: #aaff44;
+}
+
+.section-title {
+  color: #ffd060;
+  border-bottom: 1px solid #ffb00044;
+  margin-bottom: 8px;
+  padding-bottom: 2px;
+}
+
+/* === CRT FLICKER ON LOAD === */
+@keyframes flicker {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.8; }
+  12%  { opacity: 0.2; }
+  14%  { opacity: 0.9; }
+  20%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+#terminal {
+  animation: flicker 0.6s ease-in forwards;
+}
+
+/* === AMBER GLOW ON TEXT === */
+#boot-screen,
+#output,
+#input-line {
+  text-shadow: 0 0 6px #ffb00066;
+}
+
+/* === MOBILE FALLBACK === */
+@media (max-width: 600px) {
+  html, body {
+    font-size: 12px;
+    overflow-y: auto;
+  }
+
+  #terminal {
+    padding: 12px 16px;
+  }
+
+  #output {
+    overflow-y: visible;
+  }
+}
+
+/* === MOBILE: make input easier to tap === */
+@media (max-width: 600px) {
+  #input-line {
+    position: sticky;
+    bottom: 0;
+    background: #0a0800;
+    padding: 8px 0;
+  }
+
+  #cmd-input {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+}

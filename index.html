@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyle A. Williamson</title>
+
+  <!-- OG Meta for LinkedIn/social preview -->
+  <meta property="og:title" content="Kyle A. Williamson — Portfolio" />
+  <meta property="og:description" content="Engineer. Thinker. Problem Solver." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-preview.png" />
+  <meta property="og:url" content="https://yoursite.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#ffb000" />
+
+  <!-- Google Font: DOS monospace feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- CRT overlay effects -->
+  <div id="crt-scanlines"></div>
+  <div id="crt-vignette"></div>
+
+  <!-- Main terminal wrapper -->
+  <div id="terminal">
+
+    <!-- Boot screen: BIOS + AUTOEXEC output renders here -->
+    <div id="boot-screen">KYLE CORP BIOS v6.22</div>
+
+    <!-- Shell: hidden until boot finishes -->
+    <div id="shell" class="hidden">
+
+      <!-- Scrollable output history -->
+      <div id="output"></div>
+
+      <!-- Input line -->
+      <div id="input-line">
+        <span id="prompt">C:\KYLE&gt;&nbsp;</span>
+        <input
+          type="text"
+          id="cmd-input"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          autofocus
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <script src="boot.js"></script>
+  <script src="commands.js"></script>
+  <script src="terminal.js"></script>
+</body>
+</html>
