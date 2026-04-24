@@ -25,7 +25,7 @@ function cmdHelp() {
     <div><span class="bright cmd-link" onclick="runCommand('status')">status</span> (Availability)</div>
     <div><span class="bright cmd-link" onclick="runCommand('quickview')">quickview</span> (Quick summary)</div>
     <div><span class="bright cmd-link" onclick="runCommand('share')">share</span> (Copy link)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> (Toggle sound)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> (Toggle)</div>
     <div><span class="bright cmd-link" onclick="runCommand('cls')">cls</span> (Clear screen)</div>
     <div><span class="bright cmd-link" onclick="runCommand('help')">help</span> (Toggle panel)</div>
   </div>
