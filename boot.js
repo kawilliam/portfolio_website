@@ -127,7 +127,7 @@ const BOOT_LINES = [
   { text: "", delay: 600 },
 ];
 
-const SPLASH = `
+const SPLASH = `\
  ██╗  ██╗██╗   ██╗██╗     ███████╗
  ██║ ██╔╝╚██╗ ██╔╝██║     ██╔════╝
  █████╔╝  ╚████╔╝ ██║     █████╗  
@@ -141,8 +141,10 @@ const SPLASH = `
 
 const POST_SPLASH = [
   { text: "", delay: 0 },
-  { text: "Type HELP to see available commands.", delay: 200, class: "dim" },
-  { text: "", delay: 100 },
+  { text: "Welcome. This is an interactive portfolio.", delay: 200 },
+  { text: "Type commands below to explore.", delay: 400 },
+  { text: "Not sure where to start? Try typing: ABOUT", delay: 600, class: "dim" },
+  { text: "", delay: 700 },
 ];
 
 // === BOOT RUNNER ===
@@ -169,6 +171,9 @@ function runBoot() {
     const splashEl = document.createElement("pre");
     splashEl.textContent = SPLASH;
     splashEl.classList.add("bright");
+    splashEl.style.fontFamily = "'Share Tech Mono', monospace";
+    splashEl.style.lineHeight = "1.2";
+    splashEl.style.letterSpacing = "0";
     bootScreen.appendChild(splashEl);
 
     // Render post-splash lines
@@ -188,6 +193,8 @@ function runBoot() {
       const shell = document.getElementById("shell");
       shell.classList.remove("hidden");
       document.getElementById("cmd-input").focus();
+      cmdHelp();
+      setTimeout(() => autoType("about"), 1000);
     }, splashDelay + 800);
 
   }, totalDelay);
@@ -200,6 +207,8 @@ function isRecruiterMode() {
 
 document.addEventListener("click", function bootOnClick() {
   document.removeEventListener("click", bootOnClick);
+  const msg = document.getElementById("click-to-start");
+  if (msg) msg.remove();
   if (isRecruiterMode()) {
     document.getElementById("boot-screen").style.display = "none";
     const shell = document.getElementById("shell");
@@ -215,3 +224,12 @@ document.addEventListener("click", function bootOnClick() {
   }
   startAmbientDisk();
 });
+
+setTimeout(() => {
+  const shell = document.getElementById("shell");
+  shell.classList.remove("hidden");
+  document.getElementById("cmd-input").focus();
+  cmdHelp();
+  setTimeout(() => autoType("about"), 1000);
+  startDemoCountdown(); // ADD THIS
+}, splashDelay + 800);

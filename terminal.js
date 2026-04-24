@@ -3,6 +3,7 @@ const state = {
   history: [],
   historyIndex: -1,
   soundEnabled: true,
+  helpVisible: false,
 };
 
 // === HELPER: Print a line to output ===
@@ -22,6 +23,10 @@ function printBlank() {
 
 // === HELPER: Clear the output ===
 function clearOutput() {
+  if (window._screensaverInterval) {
+    clearInterval(window._screensaverInterval);
+    window._screensaverInterval = null;
+  }
   document.getElementById("output").innerHTML = "";
 }
 
@@ -38,6 +43,15 @@ document.addEventListener("click", () => {
 // === KEYBOARD: handle input submission + history ===
 document.getElementById("cmd-input").addEventListener("keydown", (e) => {
   playClick();
+  if (window._contactMode) return;
+  if (e.key !== "Enter" && e.key !== "ArrowUp" && e.key !== "ArrowDown") {
+    cancelDemo();
+    clearAutoType();
+  }
+    document.addEventListener("click", () => {
+    cancelDemo();
+    document.getElementById("cmd-input").focus();
+  });
   if (e.key === "Enter") {
     const input = document.getElementById("cmd-input");
     const raw = input.value.trim();
@@ -146,3 +160,83 @@ document.addEventListener("visibilitychange", () => {
     document.title = "Kyle A. Williamson";
   }
 });
+
+function runCommand(cmd) {
+  clearOutput();
+  print(`C:\\KYLE> ${cmd}`, "dim");
+  printBlank();
+  handleCommand(cmd.toLowerCase(), cmd);
+  printBlank();
+  document.getElementById("cmd-input").focus();
+}
+
+// === AUTO TYPE SUGGESTION ===
+let _autoTypeInterval = null;
+
+function autoType(text, delayPerChar = 80) {
+  const input = document.getElementById("cmd-input");
+  input.value = "";
+  let i = 0;
+  _autoTypeInterval = setInterval(() => {
+    if (i < text.length) {
+      input.value += text[i];
+      i++;
+    } else {
+      clearInterval(_autoTypeInterval);
+    }
+  }, delayPerChar);
+}
+
+function clearAutoType() {
+  if (_autoTypeInterval) {
+    clearInterval(_autoTypeInterval);
+    _autoTypeInterval = null;
+    document.getElementById("cmd-input").value = "";
+  }
+}
+
+// === AUTO DEMO MODE ===
+const DEMO_SEQUENCE = ["about", "projects", "skills", "status", "contact"];
+let _demoTimeout = null;
+let _demoRunning = false;
+let _demoIndex = 0;
+
+function startDemoCountdown() {
+  _demoTimeout = setTimeout(runDemo, 15000);
+}
+
+function cancelDemo() {
+  if (_demoTimeout) {
+    clearTimeout(_demoTimeout);
+    _demoTimeout = null;
+  }
+  if (_demoRunning) {
+    _demoRunning = false;
+    _demoIndex = 0;
+    clearOutput();
+    print(`<span class="dim">Demo stopped. You have control.</span>`);
+    printBlank();
+  }
+}
+
+function runDemo() {
+  _demoRunning = true;
+  if (_demoIndex >= DEMO_SEQUENCE.length) {
+    _demoIndex = 0;
+    _demoRunning = false;
+    return;
+  }
+
+  const cmd = DEMO_SEQUENCE[_demoIndex];
+  _demoIndex++;
+
+  // Auto type the command
+  autoType(cmd, 100);
+
+  setTimeout(() => {
+    runCommand(cmd);
+    if (_demoRunning) {
+      _demoTimeout = setTimeout(runDemo, 5000);
+    }
+  }, cmd.length * 100 + 500);
+}

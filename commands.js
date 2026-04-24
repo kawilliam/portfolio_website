@@ -2,21 +2,37 @@
 // HELP
 // =============================================
 function cmdHelp() {
-  print(`<span class="bright">AVAILABLE COMMANDS</span>`);
-  printDivider();
-  print(`  <span class="bright">about</span>       &mdash; Who I am`);
-  print(`  <span class="bright">projects</span>    &mdash; My work (use OPEN [NAME] to expand)`);
-  print(`  <span class="bright">skills</span>      &mdash; Technical skill diagnostics`);
-  print(`  <span class="bright">stack</span>       &mdash; Tools & languages I use`);
-  print(`  <span class="bright">resume</span>      &mdash; View & download my resume`);
-  print(`  <span class="bright">contact</span>     &mdash; Send me a message`);
-  print(`  <span class="bright">status</span>      &mdash; Current availability`);
-  print(`  <span class="bright">quickview</span>   &mdash; 30-second recruiter summary`);
-  print(`  <span class="bright">share</span>       &mdash; Copy portfolio link`);
-  print(`  <span class="bright">sound on/off</span>&mdash; Toggle keystroke sounds`);
-  print(`  <span class="bright">cls</span>         &mdash; Clear screen`);
-  printDivider();
-  print(`  <span class="dim">Feeling lucky? Try something else...</span>`);
+  if (state.helpVisible) {
+    // Turn off
+    const helpPanel = document.getElementById("help-panel");
+    if (helpPanel) helpPanel.remove();
+    state.helpVisible = false;
+    print(`  <span class="dim">Help panel hidden. Type HELP to show again.</span>`);
+  } else {
+    // Turn on
+    state.helpVisible = true;
+    const panel = document.createElement("div");
+    panel.id = "help-panel";
+    panel.innerHTML = `
+  <div class="section-title">AVAILABLE COMMANDS <span class="dim" style="font-size:0.85em">— click any command to run it</span></div>
+  <div id="help-grid">
+    <div><span class="bright cmd-link" onclick="runCommand('about')">about</span> &mdash; Who I am</div>
+    <div><span class="bright cmd-link" onclick="runCommand('projects')">projects</span> &mdash; My work</div>
+    <div><span class="bright cmd-link" onclick="runCommand('skills')">skills</span> &mdash; Skill summary</div>
+    <div><span class="bright cmd-link" onclick="runCommand('stack')">stack</span> &mdash; Tools & languages</div>
+    <div><span class="bright cmd-link" onclick="runCommand('resume')">resume</span> &mdash; View & download</div>
+    <div><span class="bright cmd-link" onclick="runCommand('contact')">contact</span> &mdash; Send message</div>
+    <div><span class="bright cmd-link" onclick="runCommand('status')">status</span> &mdash; Availability</div>
+    <div><span class="bright cmd-link" onclick="runCommand('quickview')">quickview</span> &mdash; Quick summary</div>
+    <div><span class="bright cmd-link" onclick="runCommand('share')">share</span> &mdash; Copy link</div>
+    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> &mdash; Toggle sound</div>
+    <div><span class="bright cmd-link" onclick="runCommand('cls')">cls</span> &mdash; Clear screen</div>
+    <div><span class="bright cmd-link" onclick="runCommand('help')">help</span> &mdash; Toggle panel</div>
+  </div>
+`;
+    document.getElementById("boot-screen").after(panel);
+    print(`  <span class="dim">Help panel shown. Type HELP to hide.</span>`);
+  }
 }
 
 // =============================================
@@ -241,66 +257,90 @@ function cmdResume() {
 // CONTACT
 // =============================================
 function cmdContact() {
-  print(`<span class="bright">INITIATING CONTACT PROTOCOL...</span>`);
-  printDivider();
-  print(`  <span class="dim">Fill in the fields below and hit ENTER after each.</span>`);
-  printBlank();
-
-  const fields = ["Your Name", "Your Email", "Your Message"];
+  const fields = [
+    { key: "name", label: "Your Name" },
+    { key: "email", label: "Your Email" },
+    { key: "message", label: "Your Message" },
+  ];
   const values = {};
   let fieldIndex = 0;
 
   const input = document.getElementById("cmd-input");
   const prompt = document.getElementById("prompt");
 
-  // Swap prompt to contact mode
-  prompt.textContent = `${fields[0]}: `;
+  print(`<span class="bright">INITIATING CONTACT PROTOCOL...</span>`);
+  printDivider();
+  print(`  <span class="dim">Fill in the fields below and hit ENTER after each.</span>`);
+  printBlank();
 
-  function nextField(value) {
-    values[fields[fieldIndex]] = value;
-    print(`  ${fields[fieldIndex]}: ${value}`, "dim");
-    fieldIndex++;
+  // Lock terminal into contact mode
+  window._contactMode = true;
+  prompt.textContent = `${fields[0].label}: `;
+  input.value = "";
+  input.focus();
+
+  function handleContactInput(e) {
+    if (e.key !== "Enter") return;
+    e.stopImmediatePropagation();
+
+    const val = input.value.trim();
+    if (!val) return;
+
+    input.value = "";
 
     if (fieldIndex < fields.length) {
-      prompt.textContent = `${fields[fieldIndex]}: `;
+      values[fields[fieldIndex].key] = val;
+      print(`  ${fields[fieldIndex].label}: ${val}`, "dim");
+      fieldIndex++;
+
+      if (fieldIndex < fields.length) {
+        // Move to next field
+        prompt.textContent = `${fields[fieldIndex].label}: `;
+      } else {
+        // All fields done — ask to confirm
+        prompt.textContent = `Transmit? [Y/N]: `;
+        printBlank();
+        print(`  <span class="bright">Ready to transmit. Confirm? [ Y / N ]</span>`);
+      }
     } else {
-      // Done — show confirm
-      prompt.textContent = "C:\\KYLE> ";
+      // Handle Y/N confirmation
+      const answer = val.toLowerCase();
+      input.removeEventListener("keydown", handleContactInput);
+      prompt.textContent = `C:\\KYLE> `;
+      window._contactMode = false;
+
       printBlank();
-      print(`  <span class="bright">TRANSMIT MESSAGE? [ Y / N ]</span>`);
-
-      // One-time confirm handler
-      input.addEventListener("keydown", function confirmHandler(e) {
-        if (e.key === "Enter") {
-          const answer = input.value.trim().toLowerCase();
-          input.value = "";
-          input.removeEventListener("keydown", confirmHandler);
-
-          if (answer === "y") {
-            printBlank();
+      if (answer === "y") {
+        print(`  <span class="dim">Transmitting...</span>`);
+        fetch("https://formspree.io/f/mykllorb", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            message: values.message,
+          }),
+        })
+        .then(res => {
+          if (res.ok) {
             print(`  <span class="success">Message transmitted. I'll be in touch soon.</span>`);
           } else {
-            printBlank();
-            print(`  <span class="error">Transmission cancelled.</span>`);
+            print(`  <span class="error">Transmission failed. Try emailing me directly.</span>`);
           }
           printDivider();
-        }
-      });
+        })
+        .catch(() => {
+          print(`  <span class="error">Transmission failed. Check your connection.</span>`);
+          printDivider();
+        });
+      } else {
+        print(`  <span class="error">Transmission cancelled.</span>`);
+        printDivider();
+      }
     }
   }
 
-  // Override enter key temporarily for contact flow
-  const originalHandler = input.onkeydown;
-  input.addEventListener("keydown", function contactHandler(e) {
-    if (e.key === "Enter" && fieldIndex < fields.length) {
-      e.stopImmediatePropagation();
-      const val = input.value.trim();
-      input.value = "";
-      if (val) nextField(val);
-    } else if (fieldIndex >= fields.length) {
-      input.removeEventListener("keydown", contactHandler);
-    }
-  });
+  input.addEventListener("keydown", handleContactInput);
 }
 
 // =============================================
@@ -336,7 +376,7 @@ function cmdQuickview() {
   printBlank();
   print(`  <span class="bright">Top Projects   :</span> JobAgent, SpecChain, GTA RE Predictor`);
   print(`  <span class="bright">Top Skills     :</span> Python, TLA+, Java, Embedded C`);
-  print(`  <span class="bright">Available      :</span> <span class="success">Yes — Co-op 2025</span>`);
+  print(`  <span class="bright">Available      :</span> <span class="success">Yes — Co-op 2026</span>`);
   printDivider();
   print(`  Type <span class="bright">CONTACT</span> to get in touch.`);
 }

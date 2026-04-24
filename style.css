@@ -58,10 +58,11 @@ html, body {
 /* === BOOT SCREEN === */
 #boot-screen {
   width: 100%;
-  flex: 1;
+  flex-shrink: 0;
   overflow: hidden;
   white-space: pre-wrap;
   word-break: break-word;
+  margin-bottom: 12px;
 }
 
 /* === SHELL (hidden until boot done) === */
@@ -194,4 +195,64 @@ html, body {
   #cmd-input {
     font-size: 16px; /* prevents iOS zoom on focus */
   }
+}
+
+#help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2px 8px;
+  padding: 4px 0;
+  max-width: 900px;
+  border-top: 1px solid #ffb00044;
+  border-bottom: 1px solid #ffb00044;
+  margin: 4px 0;
+}
+
+#help-panel {
+  max-width: 900px;
+  margin-bottom: 12px;
+}
+
+#shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+#output {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-bottom: 8px;
+  min-height: 0;
+}
+
+.cmd-link {
+  cursor: pointer;
+}
+
+.cmd-link:hover {
+  color: #ffd060;
+  text-shadow: 0 0 8px #ffb000;
+}
+
+/* === CLICK TO START === */
+#click-to-start {
+  #click-to-start {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  color: #ffb000;
+  text-shadow: 0 0 8px #ffb00066;
+  animation: blink 1.2s step-end infinite;
+  padding: 8px 32px;
+  pointer-events: none;
+}
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
