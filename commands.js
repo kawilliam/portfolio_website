@@ -271,6 +271,7 @@ function cmdContact() {
   print(`<span class="bright">INITIATING CONTACT PROTOCOL...</span>`);
   printDivider();
   print(`  <span class="dim">Fill in the fields below and hit ENTER after each.</span>`);
+print(`  <span class="dim">Press ESC or type EXIT at any time to cancel.</span>`);
   printBlank();
 
   // Lock terminal into contact mode
@@ -280,6 +281,16 @@ function cmdContact() {
   input.focus();
 
   function handleContactInput(e) {
+    if (e.key === "Escape" || input.value.trim().toLowerCase() === "exit") {
+      input.removeEventListener("keydown", handleContactInput);
+      prompt.textContent = `C:\\KYLE> `;
+      window._contactMode = false;
+      input.value = "";
+      printBlank();
+      print(`  <span class="dim">Contact cancelled. Returning to terminal.</span>`);
+      printDivider();
+      return;
+    }
     if (e.key !== "Enter") return;
     e.stopImmediatePropagation();
 
