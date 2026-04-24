@@ -14,20 +14,20 @@ function cmdHelp() {
     const panel = document.createElement("div");
     panel.id = "help-panel";
     panel.innerHTML = `
-  <div class="section-title">AVAILABLE COMMANDS <span class="dim" style="font-size:0.85em">— click any command to run it</span></div>
+  <div class="section-title">AVAILABLE COMMANDS <span class="dim" style="font-size:0.85em"> click any command to run it</span></div>
   <div id="help-grid">
-    <div><span class="bright cmd-link" onclick="runCommand('about')">about</span> &mdash; Who I am</div>
-    <div><span class="bright cmd-link" onclick="runCommand('projects')">projects</span> &mdash; My work</div>
-    <div><span class="bright cmd-link" onclick="runCommand('skills')">skills</span> &mdash; Skill summary</div>
-    <div><span class="bright cmd-link" onclick="runCommand('stack')">stack</span> &mdash; Tools & languages</div>
-    <div><span class="bright cmd-link" onclick="runCommand('resume')">resume</span> &mdash; View & download</div>
-    <div><span class="bright cmd-link" onclick="runCommand('contact')">contact</span> &mdash; Send message</div>
-    <div><span class="bright cmd-link" onclick="runCommand('status')">status</span> &mdash; Availability</div>
-    <div><span class="bright cmd-link" onclick="runCommand('quickview')">quickview</span> &mdash; Quick summary</div>
-    <div><span class="bright cmd-link" onclick="runCommand('share')">share</span> &mdash; Copy link</div>
-    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> &mdash; Toggle sound</div>
-    <div><span class="bright cmd-link" onclick="runCommand('cls')">cls</span> &mdash; Clear screen</div>
-    <div><span class="bright cmd-link" onclick="runCommand('help')">help</span> &mdash; Toggle panel</div>
+    <div><span class="bright cmd-link" onclick="runCommand('about')">about</span> (Who I am)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('projects')">projects</span> (My work)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('skills')">skills</span> (Skill summary)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('stack')">stack</span> (Tools & languages)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('resume')">resume</span> (View & download)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('contact')">contact</span> (Send message)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('status')">status</span> (Availability)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('quickview')">quickview</span> (Quick summary)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('share')">share</span> (Copy link)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> (Toggle sound)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('cls')">cls</span> (Clear screen)</div>
+    <div><span class="bright cmd-link" onclick="runCommand('help')">help</span> (Toggle panel)</div>
   </div>
 `;
     document.getElementById("boot-screen").after(panel);
