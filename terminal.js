@@ -121,6 +121,7 @@ function handleCommand(cmd, raw) {
     case "status":     cmdStatus();       break;
     case "quickview":  cmdQuickview();    break;
     case "cls":        clearOutput();     break;
+    case "sound":      cmdSoundToggle();  break;
     case "sound on":   cmdSoundOn();      break;
     case "sound off":  cmdSoundOff();     break;
     case "share":      cmdShare();        break;

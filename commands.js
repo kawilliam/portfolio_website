@@ -25,7 +25,7 @@ function cmdHelp() {
     <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('status')}" onclick="runCommand('status')">status</span> (Availability)</div>
     <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('quickview')}" onclick="runCommand('quickview')">quickview</span> (Quick summary)</div>
     <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('share')}" onclick="runCommand('share')">share</span> (Copy link)</div>
-    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('sound on')}" onclick="runCommand('sound on')">sound on/off</span> (Toggle)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('sound')}" onclick="runCommand('sound')">sound</span> (Toggle)</div>
     <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('cls')}" onclick="runCommand('cls')">cls</span> (Clear screen)</div>
     <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('help')}" onclick="runCommand('help')">help</span> (Toggle panel)</div>
   </div>
@@ -426,6 +426,14 @@ function cmdQuickview() {
 // =============================================
 // SOUND
 // =============================================
+function cmdSoundToggle() {
+  if (state.soundEnabled) {
+    cmdSoundOff();
+  } else {
+    cmdSoundOn();
+  }
+}
+
 function cmdSoundOn() {
   state.soundEnabled = true;
   if (audioCtx && window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5);
