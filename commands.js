@@ -435,6 +435,10 @@ function cmdSoundToggle() {
 }
 
 function cmdSoundOn() {
+  if (state.soundEnabled) {
+    print(`  <span class="dim">Sound is already enabled.</span>`);
+    return;
+  }
   state.soundEnabled = true;
   if (audioCtx && window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5);
   if (audioCtx && window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.018, audioCtx.currentTime + 0.5);
@@ -442,6 +446,10 @@ function cmdSoundOn() {
 }
 
 function cmdSoundOff() {
+  if (!state.soundEnabled) {
+    print(`  <span class="dim">Sound is already disabled.</span>`);
+    return;
+  }
   state.soundEnabled = false;
   if (audioCtx && window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
   if (audioCtx && window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
