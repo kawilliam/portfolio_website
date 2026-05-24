@@ -269,7 +269,7 @@ function cmdResume() {
         printBlank();
         print(`  To download the full PDF:`);
         print(
-          `  <a href="assets/resume.pdf" download style="color:#ffb000">` +
+          `  <a href="assets/Kyle_Williamson_Resume.pdf" download style="color:#ffb000">` +
           `PRINT RESUME.PDF</a>`
         );
         printDivider();
