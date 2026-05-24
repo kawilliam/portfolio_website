@@ -99,7 +99,7 @@ function startAmbientDisk() {
 // === BOOT CONFIGURATION ===
 const BOOT_LINES = [
   { text: "KYLE CORP BIOS v6.22", delay: 0, class: "bright" },
-  { text: "Copyright (C) 1994-2025 Kyle Corp Systems Inc.", delay: 80 },
+  { text: "Copyright (C) 1994-2026 Kyle Corp Systems Inc.", delay: 80 },
   { text: "Serial No: KW-SWE-4315-YRK", delay: 80 },
   { text: "", delay: 120 },
   { text: "CPU: Kyle A. Williamson @ 4.0GHz (Overclocked)", delay: 80 },
@@ -108,7 +108,7 @@ const BOOT_LINES = [
   { text: "", delay: 100 },
   { text: "Detecting hardware...", delay: 200 },
   { text: "  Primary Drive   : C:\\KYLE\\PORTFOLIO", delay: 150 },
-  { text: "  Co-Processor    : Formal Methods Engine (TLA+)", delay: 150 },
+  { text: "  Co-Processor    : Low-Level Systems Engine (C/C++)", delay: 150 },
   { text: "  Network Adapter : github.com/kawilliam [CONNECTED]", delay: 150 },
   { text: "  Sound Blaster   : ENABLED", delay: 150 },
   { text: "", delay: 100 },
@@ -120,8 +120,8 @@ const BOOT_LINES = [
   { text: "  SET NAME=Kyle A. Williamson", delay: 100 },
   { text: "  SET TITLE=Software Engineer", delay: 100 },
   { text: "  SET SCHOOL=York University, Lassonde School of Engineering", delay: 100 },
-  { text: "  SET TAGLINE=Engineer. Thinker. Problem Solver.", delay: 100 },
-  { text: "  SET STATUS=Seeking Co-op 2025", delay: 100 },
+  { text: "  SET TAGLINE=Builder. Problem Solver. Curious Mind.", delay: 100 },
+  { text: "  SET STATUS=Seeking New Grad Role 2027", delay: 100 },
   { text: "", delay: 200 },
   { text: "Starting KYLE.EXE...", delay: 400 },
   { text: "", delay: 600 },
@@ -135,8 +135,8 @@ const SPLASH = `\
  ██║  ██╗   ██║   ███████╗███████╗
  ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
 
- Kyle A. Williamson — Portfolio v1.0
- Engineer. Thinker. Problem Solver.
+ Kyle A. Williamson | Portfolio v1.0
+ Builder. Problem Solver. Curious Mind.
 `;
 
 const POST_SPLASH = [
@@ -195,6 +195,7 @@ function runBoot() {
       document.getElementById("cmd-input").focus();
       cmdHelp();
       setTimeout(() => autoType("about"), 1000);
+      startDemoCountdown();
     }, splashDelay + 800);
 
   }, totalDelay);
@@ -214,7 +215,7 @@ document.addEventListener("click", function bootOnClick() {
     const shell = document.getElementById("shell");
     shell.classList.remove("hidden");
     document.getElementById("cmd-input").focus();
-    print(`<span class="bright">RECRUITER MODE — Boot sequence skipped.</span>`);
+    print(`<span class="bright">RECRUITER MODE: Boot sequence skipped.</span>`);
     printBlank();
     cmdQuickview();
     printBlank();
@@ -224,12 +225,3 @@ document.addEventListener("click", function bootOnClick() {
   }
   startAmbientDisk();
 });
-
-setTimeout(() => {
-  const shell = document.getElementById("shell");
-  shell.classList.remove("hidden");
-  document.getElementById("cmd-input").focus();
-  cmdHelp();
-  setTimeout(() => autoType("about"), 1000);
-  startDemoCountdown(); // ADD THIS
-}, splashDelay + 800);

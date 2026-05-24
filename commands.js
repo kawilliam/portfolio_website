@@ -42,70 +42,94 @@ function cmdAbout() {
   print(`<span class="bright">READING FILE: ABOUT.TXT</span>`);
   printDivider();
   print(`  NAME      : Kyle A. Williamson`);
-  print(`  TITLE     : Engineering Student`);
-  print(`  SCHOOL    : York University — Lassonde School of Engineering`);
-  print(`  PROGRAM   : Software Engineering, Data Stream`);
+  print(`  TITLE     : Software Engineering Student`);
+  print(`  SCHOOL    : York University, Lassonde School of Engineering`);
+  print(`  PROGRAM   : Bachelor of Engineering, Software Engineering`);
   print(`  YEAR      : 4th Year | Expected Graduation: 2027`);
-  print(`  FOCUS     : Embedded Firmware, Formal Methods, Software Dev`);
-  print(`  WORK      : Security Professional @ North Shield Security Group`);
+  print(`  COURSES   : Mission-Critical Systems, Software Design & Testing,`);
+  print(`            : Data Structures & Algorithms, Operating Systems,`);
+  print(`            : Computer Organization, Embedded Systems, Capstone`);
+  print(`  FOCUS     : Backend, Full-Stack, Systems Programming`);
+  print(`  WORK      : Security Professional @ Northern Shield Security`);
+  print(`            : ex-Risk Associate @ Aritzia`);
+  print(`            : ex-Sales Specialist @ Apple`);
   printBlank();
-  print(`  INTERESTS : Hardware, Math, Basketball, Physics`);
+  print(`  INTERESTS : Low-Level Systems, Basketball, Math, Physics`);
   printBlank();
-  print(`  I build reliable systems — from low-level firmware to`);
-  print(`  full-stack applications. I use formal verification methods`);
-  print(`  to reason about correctness where it matters most.`);
+  print(`  LANGUAGES : English (Native), French, Italian`);
+  printBlank();
+  print(`  I build production systems from mobile apps to microservices,`);
+  print(`  with active interest in low-level and systems programming.`);
   printDivider();
-  print(`  <span class="dim">Last Modified: 04-23-2025</span>`);
+  print(`  <span class="dim">Last Modified: 05-24-2026</span>`);
 }
 
 // =============================================
 // PROJECTS
 // =============================================
 const PROJECTS = {
-  "JOBAGENT": {
-    title: "Job Application Automation Agent",
-    date: "03-15-2025",
+  "BLOCKBID": {
+    title: "BlockBid Auction System: Full-Stack Microservices Platform",
+    date: "Oct 2025 -- Dec 2025",
     desc: [
-      "Automated end-to-end job application pipeline using AI agents.",
-      "Reduced manual application time by ~80% through intelligent",
-      "resume tailoring, cover letter generation, and form submission.",
-      "Built SRS and Technical Design Document through adversarial review.",
+      "Architected 6-service microservices auction platform with",
+      "database-per-service pattern, real-time WebSocket bidding,",
+      "JWT/RBAC authentication, Ethereum blockchain audit trails,",
+      "and 30+ REST endpoints. Deployed via Docker Compose.",
     ],
-    tech: "Python, LLM APIs, Selenium, NLP",
-    impact: "80% reduction in manual application time",
+    tech: "Docker, Spring Boot, WebSocket, Ethereum, JWT",
+    impact: "6 services, 30+ REST endpoints, single-command deploy",
   },
-  "SPECCHAIN": {
-    title: "SpecChain NLP Pipeline",
-    date: "02-10-2025",
+  "RUNZ": {
+    title: "Runz: Street Basketball Ranking Mobile App",
+    date: "Jan 2026 -- Present",
     desc: [
-      "NLP pipeline for automated persona generation and requirements",
-      "engineering applied to a mental health application.",
-      "Extracted structured specifications from unstructured user data.",
+      "Full-stack competitive 1v1 basketball platform targeting 6 platforms",
+      "(iOS, Android, Web, macOS, Linux, Windows). Real-time game sessions",
+      "via Supabase Realtime WebSocket, dual-implementation Elo ranking engine",
+      "(Dart + PL/pgSQL), GPS-verified match validation via PostGIS.",
+      "Built 3 Edge Functions supporting 15+ push notification types, persistent",
+      "offline action queue, and cron-driven auto-resolution system.",
     ],
-    tech: "Python, spaCy, HuggingFace, PySpark",
-    impact: "Automated persona generation from raw user research data",
+    tech: "Flutter, Supabase, Riverpod, PostGIS, Deno, FCM",
+    impact: "6 platforms, 12+ Postgres tables, 15+ notification types",
   },
   "REALESTATE": {
-    title: "GTA Real Estate Hotspot Predictor",
-    date: "11-20-2024",
+    title: "GTA Real Estate Hotspots: Spatial Network Analysis",
+    date: "Sept 2025 -- Dec 2025",
     desc: [
-      "Predicted real estate investment hotspots across the Greater",
-      "Toronto Area using spatial autoregressive modeling and graph",
-      "based network analysis methods.",
+      "Analyzed 358,713 building permits from Toronto Open Data using",
+      "graph-based spatial network of 98 regions and 165 connections.",
+      "Spatial Autoregressive model achieved 44.7% lower RMSE (p=0.037)",
+      "and 60% precision in identifying top-10 growth hotspots.",
     ],
-    tech: "Python, node2vec, PySpark, SAR Models",
-    impact: "Identified high-growth zones with 87% spatial accuracy",
+    tech: "Python, PyTorch, NetworkX, Spatial Autoregressive Models",
+    impact: "44.7% lower RMSE, 60% precision on top-10 hotspots",
   },
   "ROOMSCHED": {
-    title: "Conference Room Scheduler",
-    date: "09-05-2024",
+    title: "YorkU Conference Room Scheduler",
+    date: "Sept 2025 -- Dec 2025",
     desc: [
-      "Full software design deliverable built for EECS 3311.",
-      "Implemented using UML design patterns including Observer,",
-      "Strategy, and Factory. Clean architecture throughout.",
+      "Led team of 4 in building enterprise room booking system with",
+      "conflict-free scheduling, role-based access control, automated",
+      "waitlisting, and comprehensive UML documentation. Applied",
+      "Observer, Factory, and Strategy design patterns.",
     ],
-    tech: "Java, UML, Design Patterns, Eiffel",
-    impact: "Full design pattern coverage across all system components",
+    tech: "Java, Design Patterns, UML, Eiffel",
+    impact: "Team of 4, full design pattern coverage",
+  },
+  "PORTFOLIO": {
+    title: "Terminal Portfolio: Interactive Developer Website",
+    date: "April 2025",
+    desc: [
+      "Interactive terminal emulator with custom shell (14+ commands,",
+      "arrow-key history, auto-demo mode, recruiter skip-path).",
+      "Procedural Web Audio API sound engine synthesizing audio from",
+      "oscillator nodes, zero audio files. CRT-era aesthetic via",
+      "layered CSS gradients and keyframe animations.",
+    ],
+    tech: "Vanilla JS, Web Audio API, CSS3, HTML5",
+    impact: "Zero dependencies, zero audio files, zero frameworks",
   },
 };
 
@@ -127,7 +151,7 @@ function cmdProjects() {
   print(`  <span class="dim">${Object.keys(PROJECTS).length} file(s) found.</span>`);
   printDivider();
   print(`  Type <span class="bright">OPEN [NAME]</span> to expand a project.`);
-  print(`  Example: <span class="bright">OPEN JOBAGENT</span>`);
+  print(`  Example: <span class="bright">OPEN BLOCKBID</span>`);
 }
 
 function cmdOpenProject(name) {
@@ -164,13 +188,13 @@ function cmdSkills() {
 
   const skills = [
     { name: "Python",            pct: 85 },
-    { name: "Java",              pct: 78 },
-    { name: "Formal Methods/TLA+", pct: 90 },
-    { name: "C / Embedded C",   pct: 62 },
-    { name: "SQL / Databases",   pct: 75 },
-    { name: "Machine Learning",  pct: 72 },
-    { name: "React / Frontend",  pct: 65 },
-    { name: "Linux / Bash",      pct: 70 },
+    { name: "Java / Spring Boot", pct: 78 },
+    { name: "Flutter / Dart",    pct: 80 },
+    { name: "JavaScript / TS",   pct: 75 },
+    { name: "C / C++",           pct: 62 },
+    { name: "SQL / Postgres",    pct: 78 },
+    { name: "Docker / DevOps",   pct: 70 },
+    { name: "Supabase / Backend", pct: 75 },
   ];
 
   skills.forEach(s => {
@@ -189,13 +213,13 @@ function cmdSkills() {
 function cmdStack() {
   print(`<span class="bright">READING FILE: STACK.CFG</span>`);
   printDivider();
-  print(`  <span class="bright">LANGUAGES  :</span> Python, Java, C, SQL, JavaScript`);
-  print(`  <span class="bright">FORMAL     :</span> TLA+, TLAPS, Hoare Logic, CTL/LTL`);
-  print(`  <span class="bright">DATA       :</span> PySpark, pandas, NumPy, HuggingFace`);
-  print(`  <span class="bright">WEB        :</span> React, HTML/CSS, Spring Boot, REST`);
-  print(`  <span class="bright">TOOLS      :</span> Git, VS Code, Docker, IntelliJ`);
-  print(`  <span class="bright">HARDWARE   :</span> STM32, RTOS, Embedded C (learning)`);
-  print(`  <span class="bright">OS         :</span> macOS, Linux, Windows`);
+  print(`  <span class="bright">LANGUAGES  :</span> Python, Java, C/C++, JavaScript, TypeScript, Dart, SQL, SystemVerilog, HTML/CSS`);
+  print(`  <span class="bright">FRAMEWORKS :</span> Spring Boot, Flutter, Riverpod, React.js, Node.js, Express.js, Streamlit`);
+  print(`  <span class="bright">DATA / ML  :</span> PyTorch, Scikit-learn, Pandas, NumPy, NetworkX, Jupyter`);
+  print(`  <span class="bright">INFRA      :</span> Docker, Docker Compose, Git, GitHub Actions, Maven, Linux/macOS`);
+  print(`  <span class="bright">DATABASES  :</span> PostgreSQL, Supabase, MySQL, SQLite`);
+  print(`  <span class="bright">PROTOCOLS  :</span> REST, WebSocket, JWT, OAuth, SSE, Discord/Telegram Bot APIs`);
+  print(`  <span class="bright">TOOLS      :</span> Postman, JUnit, Playwright, Selenium, Excel`);
   printDivider();
 }
 
@@ -231,16 +255,17 @@ function cmdResume() {
         print(`  <span class="success">Transfer complete.</span>`);
         printBlank();
         print(`  <span class="bright">Kyle A. Williamson</span>`);
-        print(`  Engineer. Thinker. Problem Solver.`);
-        print(`  york.ca | github.com/kawilliamson`);
+        print(`  Software Engineering Student. Builder.`);
+        print(`  kawilliam.github.io | github.com/kawilliam`);
         printBlank();
         print(`  EDUCATION`);
-        print(`  York University — BEng Software Engineering, Data Stream`);
-        print(`  Expected 2027`);
+        print(`  York University, BEng Software Engineering`);
+        print(`  Lassonde School of Engineering | Expected 2027`);
         printBlank();
         print(`  EXPERIENCE`);
-        print(`  Security Professional — North Shield Security Group`);
-        print(`  Software Projects: JobAgent, SpecChain, GTA RE Predictor`);
+        print(`  Security Professional @ Northern Shield Security`);
+        print(`  Risk Associate @ Aritzia | Sales Specialist @ Apple`);
+        print(`  Projects: BlockBid, Runz, GTA RE Hotspots`);
         printBlank();
         print(`  To download the full PDF:`);
         print(
@@ -360,10 +385,10 @@ print(`  <span class="dim">Press ESC or type EXIT at any time to cancel.</span>`
 function cmdStatus() {
   print(`<span class="bright">READING FILE: STATUS.SYS</span>`);
   printDivider();
-  print(`  AVAILABILITY  : <span class="success">Open to Co-op Opportunities — 2026</span>`);
+  print(`  AVAILABILITY  : <span class="success">Open to New Grad Opportunities, 2027</span>`);
   print(`  LOCATION      : Richmond Hill, Ontario, Canada`);
-  print(`  WORK TYPE     : Internship / Co-op / Contract`);
-  print(`  INTERESTS     : Embedded, Software, Hardware`);
+  print(`  WORK TYPE     : Full-Time / New Grad`);
+  print(`  INTERESTS     : Backend, Full-Stack, Systems Programming`);
   print(`  RESPONSE TIME : Within 24 hours`);
   printDivider();
   print(`  Type <span class="bright">CONTACT</span> to reach out.`);
@@ -373,21 +398,21 @@ function cmdStatus() {
 // QUICKVIEW
 // =============================================
 function cmdQuickview() {
-  print(`<span class="bright">QUICKVIEW — 30 SECOND SUMMARY</span>`);
+  print(`<span class="bright">QUICKVIEW: 30 SECOND SUMMARY</span>`);
   printDivider();
   print(`  Kyle A. Williamson is a 4th-year Software Engineering student`);
-  print(`  at York University (Data Stream), graduating in 2027.`);
+  print(`  at York University (Lassonde School of Engineering),`);
+  print(`  graduating in 2027.`);
   printBlank();
-  print(`  He specializes in formal methods, embedded systems, and`);
-  print(`  data engineering — with a track record of building tools`);
-  print(`  that are correct by design, not just by testing.`);
+  print(`  He builds production systems from mobile apps to microservices,`);
+  print(`  with active interest in low-level and systems programming.`);
   printBlank();
-  print(`  Currently seeking co-op roles in embedded firmware,`);
-  print(`  software development, or systems engineering.`);
+  print(`  Currently seeking a backend, full-stack, or systems-oriented`);
+  print(`  new-graduate role.`);
   printBlank();
-  print(`  <span class="bright">Top Projects   :</span> JobAgent, SpecChain, GTA RE Predictor`);
-  print(`  <span class="bright">Top Skills     :</span> Python, TLA+, Java, Embedded C`);
-  print(`  <span class="bright">Available      :</span> <span class="success">Yes — Co-op 2026</span>`);
+  print(`  <span class="bright">Top Projects   :</span> BlockBid, Runz, GTA Real Estate Hotspots`);
+  print(`  <span class="bright">Top Skills     :</span> Python, Java, Flutter/Dart, TypeScript`);
+  print(`  <span class="bright">Available      :</span> <span class="success">Yes, New Grad 2027</span>`);
   printDivider();
   print(`  Type <span class="bright">CONTACT</span> to get in touch.`);
 }
@@ -419,7 +444,7 @@ function cmdShare() {
     print(`  <span class="dim">${url}</span>`);
   }).catch(() => {
     print(`  Link: <span class="bright">${url}</span>`);
-    print(`  <span class="dim">(Copy manually — clipboard access denied)</span>`);
+    print(`  <span class="dim">(Copy manually, clipboard access denied)</span>`);
   });
 }
 

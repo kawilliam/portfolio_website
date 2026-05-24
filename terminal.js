@@ -37,6 +37,7 @@ function printDivider() {
 
 // === CLICK ANYWHERE TO FOCUS INPUT ===
 document.addEventListener("click", () => {
+  cancelDemo();
   document.getElementById("cmd-input").focus();
 });
 
@@ -48,10 +49,6 @@ document.getElementById("cmd-input").addEventListener("keydown", (e) => {
     cancelDemo();
     clearAutoType();
   }
-    document.addEventListener("click", () => {
-    cancelDemo();
-    document.getElementById("cmd-input").focus();
-  });
   if (e.key === "Enter") {
     const input = document.getElementById("cmd-input");
     const raw = input.value.trim();
