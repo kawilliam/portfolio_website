@@ -21,7 +21,7 @@ html, body {
 #crt-scanlines {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 102;
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
@@ -30,6 +30,26 @@ html, body {
     rgba(0, 0, 0, 0.15) 3px,
     rgba(0, 0, 0, 0.15) 4px
   );
+}
+
+/* Scanline distortion: moiré interference from offset second pattern */
+#crt-scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3.2px,
+    rgba(0, 0, 0, 0.06) 3.2px,
+    rgba(0, 0, 0, 0.06) 3.8px
+  );
+  animation: scan-warp 7s ease-in-out infinite alternate;
+}
+
+@keyframes scan-warp {
+  from { transform: translateY(0); opacity: 0.6; }
+  to   { transform: translateY(0.5px); opacity: 1; }
 }
 
 /* === CRT VIGNETTE === */
