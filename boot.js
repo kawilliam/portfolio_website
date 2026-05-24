@@ -118,7 +118,7 @@ const BOOT_LINES = [
   { text: "Loading AUTOEXEC.BAT...", delay: 300 },
   { text: "", delay: 200 },
   { text: "  SET NAME=Kyle A. Williamson", delay: 100 },
-  { text: "  SET TITLE=Software Engineer", delay: 100 },
+  { text: "  SET TITLE=Software Engineering Student", delay: 100 },
   { text: "  SET SCHOOL=York University, Lassonde School of Engineering", delay: 100 },
   { text: "  SET TAGLINE=Builder. Problem Solver. Curious Mind.", delay: 100 },
   { text: "  SET STATUS=Seeking New Grad Role 2027", delay: 100 },
@@ -206,8 +206,11 @@ function isRecruiterMode() {
   return window.location.search.includes("recruiter");
 }
 
-document.addEventListener("click", function bootOnClick() {
-  document.removeEventListener("click", bootOnClick);
+let _bootStarted = false;
+
+function startBoot() {
+  if (_bootStarted) return;
+  _bootStarted = true;
   const msg = document.getElementById("click-to-start");
   if (msg) msg.remove();
   if (isRecruiterMode()) {
@@ -219,9 +222,30 @@ document.addEventListener("click", function bootOnClick() {
     printBlank();
     cmdQuickview();
     printBlank();
-    print(`Type <span class="bright">HELP</span> to see all commands.`);
+    print(`Type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('help')}" onclick="runCommand('help')">HELP</span> to see all commands.`);
   } else {
     runBoot();
   }
   startAmbientDisk();
-});
+}
+
+function bootInteract() {
+  document.removeEventListener("click", bootOnClick);
+  document.removeEventListener("keydown", bootOnKey);
+  startBoot();
+}
+
+function bootOnClick() { bootInteract(); }
+function bootOnKey(e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); bootInteract(); } }
+
+document.addEventListener("click", bootOnClick);
+document.addEventListener("keydown", bootOnKey);
+
+// Auto-start after 30 seconds of inactivity
+setTimeout(() => {
+  if (!_bootStarted) {
+    document.removeEventListener("click", bootOnClick);
+    document.removeEventListener("keydown", bootOnKey);
+    startBoot();
+  }
+}, 30000);

@@ -16,18 +16,18 @@ function cmdHelp() {
     panel.innerHTML = `
   <div class="section-title">AVAILABLE COMMANDS <span class="dim" style="font-size:0.85em"> click any command to run it</span></div>
   <div id="help-grid">
-    <div><span class="bright cmd-link" onclick="runCommand('about')">about</span> (Who I am)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('projects')">projects</span> (My work)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('skills')">skills</span> (Skill summary)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('stack')">stack</span> (Tools & languages)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('resume')">resume</span> (View & download)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('contact')">contact</span> (Send message)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('status')">status</span> (Availability)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('quickview')">quickview</span> (Quick summary)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('share')">share</span> (Copy link)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('sound on')">sound on/off</span> (Toggle)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('cls')">cls</span> (Clear screen)</div>
-    <div><span class="bright cmd-link" onclick="runCommand('help')">help</span> (Toggle panel)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('about')}" onclick="runCommand('about')">about</span> (Who I am)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('projects')}" onclick="runCommand('projects')">projects</span> (My work)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('skills')}" onclick="runCommand('skills')">skills</span> (Skill summary)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('stack')}" onclick="runCommand('stack')">stack</span> (Tools & languages)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('resume')}" onclick="runCommand('resume')">resume</span> (View & download)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('contact')}" onclick="runCommand('contact')">contact</span> (Send message)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('status')}" onclick="runCommand('status')">status</span> (Availability)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('quickview')}" onclick="runCommand('quickview')">quickview</span> (Quick summary)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('share')}" onclick="runCommand('share')">share</span> (Copy link)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('sound on')}" onclick="runCommand('sound on')">sound on/off</span> (Toggle)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('cls')}" onclick="runCommand('cls')">cls</span> (Clear screen)</div>
+    <div><span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('help')}" onclick="runCommand('help')">help</span> (Toggle panel)</div>
   </div>
 `;
     document.getElementById("boot-screen").after(panel);
@@ -58,8 +58,12 @@ function cmdAbout() {
   printBlank();
   print(`  LANGUAGES : English (Native), French, Italian`);
   printBlank();
-  print(`  I build production systems from mobile apps to microservices,`);
+  print(`  I build full-stack systems from mobile apps to microservices,`);
   print(`  with active interest in low-level and systems programming.`);
+  printBlank();
+  print(`  CONTACT   : mgkshome7@gmail.com`);
+  print(`  LINKEDIN  : linkedin.com/in/kyle-abraham-williamson`);
+  print(`  LOCATION  : Richmond Hill, ON, Canada`);
   printDivider();
   print(`  <span class="dim">Last Modified: 05-24-2026</span>`);
 }
@@ -92,7 +96,7 @@ const PROJECTS = {
       "offline action queue, and cron-driven auto-resolution system.",
     ],
     tech: "Flutter, Supabase, Riverpod, PostGIS, Deno, FCM",
-    impact: "6 platforms, 12+ Postgres tables, 15+ notification types",
+    impact: "2 platforms, 12+ Postgres tables, 15+ notification types",
   },
   "REALESTATE": {
     title: "GTA Real Estate Hotspots: Spatial Network Analysis",
@@ -141,7 +145,7 @@ function cmdProjects() {
 
   Object.entries(PROJECTS).forEach(([key, p]) => {
     print(
-      `  <span class="bright">${key.padEnd(14)}</span>` +
+      `  <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('open ${key.toLowerCase()}')}" onclick="runCommand('open ${key.toLowerCase()}')">${key.padEnd(14)}</span>` +
       `<span class="dim">&lt;EXE&gt;</span>  ` +
       `${p.title}`
     );
@@ -150,15 +154,14 @@ function cmdProjects() {
   printBlank();
   print(`  <span class="dim">${Object.keys(PROJECTS).length} file(s) found.</span>`);
   printDivider();
-  print(`  Type <span class="bright">OPEN [NAME]</span> to expand a project.`);
-  print(`  Example: <span class="bright">OPEN BLOCKBID</span>`);
+  print(`  Click a project above or type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('open blockbid')}" onclick="runCommand('open blockbid')">OPEN [NAME]</span> to expand.`);
 }
 
 function cmdOpenProject(name) {
   const project = PROJECTS[name];
   if (!project) {
     print(`File not found: "${name}"`, "error");
-    print(`Type <span class="bright">PROJECTS</span> to see available projects.`);
+    print(`Type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('projects')}" onclick="runCommand('projects')">PROJECTS</span> to see available projects.`);
     return;
   }
 
@@ -227,11 +230,13 @@ function cmdStack() {
 // RESUME
 // =============================================
 function cmdResume() {
+  // Clear any orphaned progress interval from a previous call
+  if (window._resumeInterval) { clearInterval(window._resumeInterval); window._resumeInterval = null; }
   print(`<span class="bright">LOADING RESUME.PDF...</span>`);
   printDivider();
 
   let progress = 0;
-  const interval = setInterval(() => {
+  window._resumeInterval = setInterval(() => {
     progress += 20;
     const filled = Math.round(progress / 10);
     const empty = 10 - filled;
@@ -249,14 +254,15 @@ function cmdResume() {
     }
 
     if (progress >= 100) {
-      clearInterval(interval);
+      clearInterval(window._resumeInterval);
+      window._resumeInterval = null;
       setTimeout(() => {
         printBlank();
         print(`  <span class="success">Transfer complete.</span>`);
         printBlank();
         print(`  <span class="bright">Kyle A. Williamson</span>`);
         print(`  Software Engineering Student. Builder.`);
-        print(`  kawilliam.github.io | github.com/kawilliam`);
+        print(`  kawilliam.github.io | github.com/kawilliam | linkedin.com/in/kyle-abraham-williamson`);
         printBlank();
         print(`  EDUCATION`);
         print(`  York University, BEng Software Engineering`);
@@ -326,7 +332,7 @@ print(`  <span class="dim">Press ESC or type EXIT at any time to cancel.</span>`
 
     if (fieldIndex < fields.length) {
       values[fields[fieldIndex].key] = val;
-      print(`  ${fields[fieldIndex].label}: ${val}`, "dim");
+      printText(`  ${fields[fieldIndex].label}: ${val}`);
       fieldIndex++;
 
       if (fieldIndex < fields.length) {
@@ -346,7 +352,7 @@ print(`  <span class="dim">Press ESC or type EXIT at any time to cancel.</span>`
       window._contactMode = false;
 
       printBlank();
-      if (answer === "y") {
+      if (answer === "y" || answer === "yes") {
         print(`  <span class="dim">Transmitting...</span>`);
         fetch("https://formspree.io/f/mykllorb", {
           method: "POST",
@@ -361,12 +367,12 @@ print(`  <span class="dim">Press ESC or type EXIT at any time to cancel.</span>`
           if (res.ok) {
             print(`  <span class="success">Message transmitted. I'll be in touch soon.</span>`);
           } else {
-            print(`  <span class="error">Transmission failed. Try emailing me directly.</span>`);
+            print(`  <span class="error">Transmission failed. Try emailing mgkshome7@gmail.com directly.</span>`);
           }
           printDivider();
         })
         .catch(() => {
-          print(`  <span class="error">Transmission failed. Check your connection.</span>`);
+          print(`  <span class="error">Transmission failed. Check your connection or email mgkshome7@gmail.com.</span>`);
           printDivider();
         });
       } else {
@@ -391,7 +397,7 @@ function cmdStatus() {
   print(`  INTERESTS     : Backend, Full-Stack, Systems Programming`);
   print(`  RESPONSE TIME : Within 24 hours`);
   printDivider();
-  print(`  Type <span class="bright">CONTACT</span> to reach out.`);
+  print(`  Type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('contact')}" onclick="runCommand('contact')">CONTACT</span> to reach out.`);
 }
 
 // =============================================
@@ -404,17 +410,17 @@ function cmdQuickview() {
   print(`  at York University (Lassonde School of Engineering),`);
   print(`  graduating in 2027.`);
   printBlank();
-  print(`  He builds production systems from mobile apps to microservices,`);
+  print(`  He builds full-stack systems from mobile apps to microservices,`);
   print(`  with active interest in low-level and systems programming.`);
   printBlank();
-  print(`  Currently seeking a backend, full-stack, or systems-oriented`);
+  print(`  He is currently seeking a backend, full-stack, or systems-oriented`);
   print(`  new-graduate role.`);
   printBlank();
   print(`  <span class="bright">Top Projects   :</span> BlockBid, Runz, GTA Real Estate Hotspots`);
   print(`  <span class="bright">Top Skills     :</span> Python, Java, Flutter/Dart, TypeScript`);
   print(`  <span class="bright">Available      :</span> <span class="success">Yes, New Grad 2027</span>`);
   printDivider();
-  print(`  Type <span class="bright">CONTACT</span> to get in touch.`);
+  print(`  Type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('contact')}" onclick="runCommand('contact')">CONTACT</span> to get in touch.`);
 }
 
 // =============================================
@@ -422,15 +428,15 @@ function cmdQuickview() {
 // =============================================
 function cmdSoundOn() {
   state.soundEnabled = true;
-  if (window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5);
-  if (window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.018, audioCtx.currentTime + 0.5);
+  if (audioCtx && window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5);
+  if (audioCtx && window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.018, audioCtx.currentTime + 0.5);
   print(`  <span class="success">Sound enabled.</span>`);
 }
 
 function cmdSoundOff() {
   state.soundEnabled = false;
-  if (window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
-  if (window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+  if (audioCtx && window._diskGain) window._diskGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+  if (audioCtx && window._flutterGain) window._flutterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
   print(`  <span class="dim">Sound disabled.</span>`);
 }
 
@@ -458,12 +464,10 @@ function eggWin() {
 }
 
 function eggDoom() {
-  print(`<span class="bright">`, "");
-  print(`        /\\_/\\  `);
-  print(`       ( o.o ) `);
-  print(`  >>>   > ^ <  `);
-  print(`  RIP AND TEAR UNTIL IT IS DONE`);
-  print(`</span>`, "");
+  print(`<span class="bright">        /\\_/\\  </span>`);
+  print(`<span class="bright">       ( o.o ) </span>`);
+  print(`<span class="bright">  >>>   > ^ <  </span>`);
+  print(`<span class="bright">  RIP AND TEAR UNTIL IT IS DONE</span>`);
   printBlank();
   print(`  <span class="dim">No demons found on this system.</span>`);
 }
@@ -472,7 +476,7 @@ function eggMatrix() {
   print(`  <span class="success">Initializing Matrix protocol...</span>`);
   const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノ01";
   let count = 0;
-  const interval = setInterval(() => {
+  window._matrixInterval = setInterval(() => {
     let line = "  ";
     for (let i = 0; i < 48; i++) {
       line += chars[Math.floor(Math.random() * chars.length)];
@@ -480,7 +484,8 @@ function eggMatrix() {
     print(`<span class="success">${line}</span>`);
     count++;
     if (count >= 10) {
-      clearInterval(interval);
+      clearInterval(window._matrixInterval);
+      window._matrixInterval = null;
       printBlank();
       print(`  <span class="bright">Wake up, Kyle...</span>`);
     }
@@ -497,12 +502,13 @@ function eggHack() {
     "  Rerouting through proxies..........",
   ];
   let i = 0;
-  const interval = setInterval(() => {
+  window._hackInterval = setInterval(() => {
     if (i < lines.length) {
       print(`<span class="error">${lines[i]}</span>`);
       i++;
     } else {
-      clearInterval(interval);
+      clearInterval(window._hackInterval);
+      window._hackInterval = null;
       printBlank();
       print(`  <span class="bright">ACCESS DENIED.</span>`);
       print(`  <span class="dim">Did you really think that would work?</span>`);
@@ -513,7 +519,7 @@ function eggHack() {
 function eggHireMe() {
   print(`  <span class="success">EXCELLENT DECISION.</span>`);
   print(`  Redirecting to contact protocol...`);
-  setTimeout(() => {
+  window._hireTimeout = setTimeout(() => {
     clearOutput();
     cmdContact();
   }, 1200);
@@ -561,6 +567,22 @@ function clearOutput() {
   if (window._screensaverInterval) {
     clearInterval(window._screensaverInterval);
     window._screensaverInterval = null;
+  }
+  if (window._matrixInterval) {
+    clearInterval(window._matrixInterval);
+    window._matrixInterval = null;
+  }
+  if (window._hackInterval) {
+    clearInterval(window._hackInterval);
+    window._hackInterval = null;
+  }
+  if (window._resumeInterval) {
+    clearInterval(window._resumeInterval);
+    window._resumeInterval = null;
+  }
+  if (window._hireTimeout) {
+    clearTimeout(window._hireTimeout);
+    window._hireTimeout = null;
   }
   document.getElementById("output").innerHTML = "";
 }

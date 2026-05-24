@@ -2,7 +2,7 @@
 const state = {
   history: [],
   historyIndex: -1,
-  soundEnabled: true,
+  soundEnabled: false,
   helpVisible: false,
 };
 
@@ -12,8 +12,19 @@ function print(text = "", className = "") {
   const line = document.createElement("div");
   line.innerHTML = text;
   if (className) line.classList.add(className);
+  const atBottom = output.scrollHeight - output.scrollTop - output.clientHeight < 50;
   output.appendChild(line);
-  output.scrollTop = output.scrollHeight;
+  if (atBottom) output.scrollTop = output.scrollHeight;
+}
+
+// === HELPER: Print plain text (no HTML) to avoid XSS ===
+function printText(text = "") {
+  const output = document.getElementById("output");
+  const line = document.createElement("div");
+  line.textContent = text;
+  const atBottom = output.scrollHeight - output.scrollTop - output.clientHeight < 50;
+  output.appendChild(line);
+  if (atBottom) output.scrollTop = output.scrollHeight;
 }
 
 // === HELPER: Print a blank line ===
@@ -38,6 +49,7 @@ function printDivider() {
 // === CLICK ANYWHERE TO FOCUS INPUT ===
 document.addEventListener("click", () => {
   cancelDemo();
+  clearAutoType();
   document.getElementById("cmd-input").focus();
 });
 
@@ -64,10 +76,8 @@ document.getElementById("cmd-input").addEventListener("keydown", (e) => {
 
     if (raw === "") return;
 
-    // Clear then route to command handler
-    clearOutput();
+    // Append command to output (preserve scrollback)
     print(`C:\\KYLE> ${raw}`, "dim");
-    printBlank();
     handleCommand(cmd, raw);
 
     printBlank();
@@ -135,7 +145,7 @@ function handleCommand(cmd, raw) {
           `Bad command or file name: "${raw}"`,
           "error"
         );
-        print(`Type <span class="bright">HELP</span> to see available commands.`);
+        print(`Type <span class="bright cmd-link" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();runCommand('help')}" onclick="runCommand('help')">HELP</span> to see available commands.`);
       }
   }
 }
@@ -159,9 +169,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 function runCommand(cmd) {
-  clearOutput();
   print(`C:\\KYLE> ${cmd}`, "dim");
-  printBlank();
   handleCommand(cmd.toLowerCase(), cmd);
   printBlank();
   document.getElementById("cmd-input").focus();
@@ -193,7 +201,7 @@ function clearAutoType() {
 }
 
 // === AUTO DEMO MODE ===
-const DEMO_SEQUENCE = ["about", "projects", "skills", "status", "contact"];
+const DEMO_SEQUENCE = ["about", "projects", "skills", "quickview", "status"];
 let _demoTimeout = null;
 let _demoRunning = false;
 let _demoIndex = 0;
@@ -210,9 +218,6 @@ function cancelDemo() {
   if (_demoRunning) {
     _demoRunning = false;
     _demoIndex = 0;
-    clearOutput();
-    print(`<span class="dim">Demo stopped. You have control.</span>`);
-    printBlank();
   }
 }
 
