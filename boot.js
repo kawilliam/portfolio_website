@@ -21,6 +21,7 @@ function playClick() {
 
 // === BOOT BEEP SEQUENCE ===
 function playBootSound() {
+  if (!state.soundEnabled) return;
   try {
     if (!audioCtx) audioCtx = new AudioContext();
 
@@ -61,8 +62,10 @@ function startAmbientDisk() {
     spinGain.connect(audioCtx.destination);
     spinOsc.type = "triangle";
     spinOsc.frequency.setValueAtTime(75, t);
+    const targetDiskGain = state.soundEnabled ? 0.04 : 0.0001;
+    const targetFlutterGain = state.soundEnabled ? 0.050 : 0.0001;
     spinGain.gain.setValueAtTime(0.0001, t);
-    spinGain.gain.linearRampToValueAtTime(0.04, t + 1.5);
+    spinGain.gain.linearRampToValueAtTime(targetDiskGain, t + 1.5);
     spinOsc.start(t);
 
     // Flutter layer
@@ -73,7 +76,7 @@ function startAmbientDisk() {
     flutterOsc.type = "sine";
     flutterOsc.frequency.setValueAtTime(160, t);
     flutterGain.gain.setValueAtTime(0.0001, t);
-    flutterGain.gain.linearRampToValueAtTime(0.050, t + 1.5);
+    flutterGain.gain.linearRampToValueAtTime(targetFlutterGain, t + 1.5);
     flutterOsc.start(t);
 
     // Subtle pitch variation to simulate seeking
