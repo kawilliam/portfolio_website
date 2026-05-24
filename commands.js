@@ -424,6 +424,19 @@ function cmdQuickview() {
 }
 
 // =============================================
+// SHUTDOWN
+// =============================================
+function cmdShutdown() {
+  print(`<span class="bright">SHUTTING DOWN...</span>`);
+  printBlank();
+  print(`  <span class="dim">Powering off display...</span>`);
+  setTimeout(() => {
+    document.getElementById("terminal").classList.add("shutting-down");
+    setTimeout(() => { location.reload(); }, 1500);
+  }, 600);
+}
+
+// =============================================
 // SOUND
 // =============================================
 function cmdSoundToggle() {

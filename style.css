@@ -260,3 +260,69 @@ html, body {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
+
+/* === CRT WARM-UP COLOR SHIFT === */
+#crt-warmup {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+  background: #0a1020;
+  animation: warmup 2.5s ease-out forwards;
+}
+
+@keyframes warmup {
+  0%   { background: #0a1020; opacity: 1; }
+  30%  { background: #0a0c14; opacity: 1; }
+  60%  { background: #0a0808; opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* === CRT JITTER === */
+#crt-jitter {
+  position: fixed;
+  inset: 0;
+  z-index: 97;
+  pointer-events: none;
+  animation: jitter 12s ease-in-out infinite;
+}
+
+@keyframes jitter {
+  0%,   2%,   4%,   100%  { transform: translateX(0); }
+  0.5%, 2.5%, 10.5%, 18.5% { transform: translateX(0.4px); }
+  1%,   11%,  19%          { transform: translateX(-0.3px); }
+  15%,  22%                { transform: translateX(0.2px); }
+  15.5%, 22.5%             { transform: translateX(-0.2px); }
+}
+
+/* === HORIZONTAL SYNC GLITCH === */
+#crt-sync {
+  position: fixed;
+  inset: 0;
+  z-index: 96;
+  pointer-events: none;
+  animation: sync-glitch 35s linear infinite;
+}
+
+@keyframes sync-glitch {
+  0%,   100%              { transform: translateX(0); }
+  42%,  42.15%            { transform: translateX(3px); }
+  42.15%, 42.3%           { transform: translateX(0); }
+  78%,  78.12%            { transform: translateX(-2px); }
+  78.12%, 78.24%          { transform: translateX(0); }
+}
+
+/* === POWER-OFF SHUTDOWN === */
+#terminal.shutting-down {
+  animation: shutdown 1.4s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes shutdown {
+  0%   { transform: scale(1, 1); opacity: 1; filter: brightness(1); }
+  20%  { transform: scale(1, 1.05); opacity: 1; filter: brightness(1.8); }
+  40%  { transform: scale(1, 0.01); opacity: 1; filter: brightness(2.5); }
+  55%  { transform: scale(1, 0.01); opacity: 1; filter: brightness(0.8); }
+  80%  { transform: scale(0.1, 0.01); opacity: 0.4; filter: brightness(0.3); }
+  100% { transform: scale(0, 0); opacity: 0; filter: brightness(0); }
+}

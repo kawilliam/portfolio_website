@@ -125,6 +125,7 @@ function handleCommand(cmd, raw) {
     case "sound on":   cmdSoundOn();      break;
     case "sound off":  cmdSoundOff();     break;
     case "share":      cmdShare();        break;
+    case "shutdown":   cmdShutdown();     break;
 
     // Easter eggs
     case "win":        eggWin();          break;
