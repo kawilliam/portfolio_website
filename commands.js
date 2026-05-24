@@ -84,8 +84,8 @@ const PROJECTS = {
     title: "Runz: Street Basketball Ranking Mobile App",
     date: "Jan 2026 -- Present",
     desc: [
-      "Full-stack competitive 1v1 basketball platform targeting 6 platforms",
-      "(iOS, Android, Web, macOS, Linux, Windows). Real-time game sessions",
+      "Full-stack competitive 1v1 basketball platform targeting 2 platforms",
+      "(iOS, Android). Real-time game sessions",
       "via Supabase Realtime WebSocket, dual-implementation Elo ranking engine",
       "(Dart + PL/pgSQL), GPS-verified match validation via PostGIS.",
       "Built 3 Edge Functions supporting 15+ push notification types, persistent",
