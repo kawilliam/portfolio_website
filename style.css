@@ -163,11 +163,35 @@ html, body {
   animation: flicker 0.6s ease-in forwards;
 }
 
-/* === AMBER GLOW ON TEXT === */
+/* === CHROMATIC ABERRATION + GLOW ON TEXT === */
 #boot-screen,
 #output,
 #input-line {
-  text-shadow: 0 0 6px #ffb00066;
+  text-shadow:
+    1px 0 2px rgba(255, 40, 20, 0.25),
+    -1px 0 2px rgba(20, 80, 255, 0.25),
+    0 0 6px #ffb00066;
+}
+
+/* === CRT SCREEN ROLL === */
+#crt-roll {
+  position: fixed;
+  inset: 0;
+  z-index: 98;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 98%,
+    rgba(255, 255, 255, 0.025) 98.5%,
+    transparent 100%
+  );
+  animation: roll 6s linear infinite;
+}
+
+@keyframes roll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100vh; }
 }
 
 /* === MOBILE === */
