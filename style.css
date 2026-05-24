@@ -179,18 +179,19 @@ html, body {
   inset: 0;
   z-index: 98;
   pointer-events: none;
-  background: repeating-linear-gradient(
+  background: linear-gradient(
     to bottom,
     transparent 0%,
-    transparent 98%,
-    rgba(255, 255, 255, 0.025) 98.5%,
-    transparent 100%
+    transparent 94%,
+    rgba(255, 176, 0, 0.10) 96%,
+    transparent 98%
   );
+  background-size: 100% 100vh;
   animation: roll 6s linear infinite;
 }
 
 @keyframes roll {
-  from { background-position: 0 0; }
+  from { background-position: 0 -100vh; }
   to   { background-position: 0 100vh; }
 }
 
