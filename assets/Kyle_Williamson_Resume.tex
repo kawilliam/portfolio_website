@@ -8,6 +8,12 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{microtype}
+
+% ATS-friendly: disable ligatures, clean Unicode mapping
+\DisableLigatures{encoding = *, family = *}
+\pdfgentounicode=1
+\input{glyphtounicode}
 
 % === COLORS ===
 \definecolor{linkcolor}{RGB}{0,70,130}
@@ -56,56 +62,57 @@
 
 % === EDUCATION ===
 \resumesection{EDUCATION}
-\resumeentry{York University -- Lassonde School of Engineering}{Sept 2021 -- April 2027}{Bachelor of Engineering, Software Engineering}
+\resumeentry{York University - Lassonde School of Engineering}{Sept 2021 - April 2027}{Bachelor of Engineering, Software Engineering}
 \noindent\textbf{Relevant Coursework:} Mission-Critical Systems, Software Design \& Testing, Data Structures \& Algorithms, Operating Systems, Computer Organization, Embedded Systems, Capstone Engineering Project
 
 % === PROJECTS ===
 \resumesection{PROJECTS}
 
 
-% --- BlockBid ---
-\resumeentry{BlockBid Auction System -- Full-Stack Microservices Platform}{Oct 2025 -- Dec 2025}{Docker / Spring Boot / WebSocket / Ethereum}
+% -- BlockBid --
+\resumeentry{BlockBid Auction System - Full-Stack Microservices Platform}{Oct 2025 - Dec 2025}{Docker / Spring Boot / WebSocket / Ethereum}
 \resumebullet{Architected 6-service microservices auction platform with database-per-service pattern, real-time WebSocket bidding with JWT/RBAC authentication, Ethereum blockchain audit trails, and 30+ REST endpoints, deployed via Docker Compose with a single command.}
 
-% --- Runz ---
-\resumeentry{Runz -- Street Basketball Ranking Mobile App}{Jan 2026 -- Present}{Flutter / Supabase / Riverpod / PostGIS / Deno}
+% -- Runz --
+\resumeentry{Runz - Street Basketball Ranking Mobile App}{Jan 2026 - Present}{Flutter / Supabase / Riverpod / PostGIS / Deno}
 \resumebullet{Architected full-stack competitive 1v1 basketball platform targeting iOS and Android with real-time game sessions via Supabase Realtime WebSocket subscriptions, eliminating polling for live status updates across 12+ Postgres tables during active matches.}
 \resumebullet{Designed dual-implementation Elo ranking engine (Dart + PL/pgSQL) with dynamic K-factors, 5-tier progressive ranking system, GPS verification weighting, and anti-cheat protections including streak cooldowns, rep quarantine, and server-side proximity validation via PostGIS.}
 \resumebullet{Built 3 Edge Functions (TypeScript/Deno) supporting 15+ push notification types via OAuth2-signed FCM v1 API, persistent offline action queue with exponential-backoff retry, and cron-driven auto-resolution for abandoned game sessions, backed by unit and widget tests.}
 
-% --- YorkU Room Scheduler ---
-\resumeentry{YorkU Conference Room Scheduler}{Sept 2025 -- Dec 2025}{Java / Design Patterns / UML}
+% -- YorkU Room Scheduler --
+\resumeentry{YorkU Conference Room Scheduler}{Sept 2025 - Dec 2025}{Java / Design Patterns / UML}
 \resumebullet{Led team of 4 in building enterprise room booking system with conflict-free scheduling, role-based access control, automated waitlisting, and comprehensive UML documentation, applying Observer, Factory, and Strategy design patterns.}
 
-% --- GTA Real Estate ---
-\resumeentry{GTA Real Estate Hotspots -- Spatial Network Analysis}{Sept 2025 -- Dec 2025}{Python / PyTorch / NetworkX}
+% -- GTA Real Estate --
+\resumeentry{GTA Real Estate Hotspots - Spatial Network Analysis}{Sept 2025 - Dec 2025}{Python / PyTorch / NetworkX}
 \resumebullet{Analyzed 358,713 building permits from Toronto Open Data using graph-based spatial network of 98 regions and 165 connections, with Spatial Autoregressive model achieving 44.7\% lower RMSE ($p = 0.037$) and 60\% precision in identifying top-10 real estate growth hotspots.}
 
-% --- Portfolio Website ---
-\resumeentry{Terminal Portfolio -- Interactive Developer Website}{April 2025}{Vanilla JS / Web Audio API / CSS3}
+% -- Portfolio Website --
+\resumeentry{Terminal Portfolio - Interactive Developer Website}{April 2025}{Vanilla JS / Web Audio API / CSS3}
 \resumebullet{Built interactive terminal emulator with custom shell (14+ commands, arrow-key history, inactivity-triggered auto-demo, recruiter skip-path via URL parameter), procedural Web Audio API sound engine synthesizing POST beeps and keystroke clicks from oscillator nodes with zero audio files, and CRT-era aesthetic via layered CSS gradients and keyframe animations, all vanilla JS, HTML5, CSS3, zero dependencies.}
 
 % === PROFESSIONAL EXPERIENCE ===
 \resumesection{PROFESSIONAL EXPERIENCE}
 
-\resumeentry{Aritzia -- Risk Associate}{Nov 2025 -- Feb 2026}{Vaughan, ON}
+\resumeentry{Aritzia - Risk Associate}{Nov 2025 - Feb 2026}{Vaughan, ON}
 \resumebullet{Conducted inventory audits and fraud monitoring across store operations, coaching team members on loss prevention procedures and inventory accuracy.}
 
-\resumeentry{Northern Shield Security -- Security Professional}{Nov 2024 -- Present}{Richmond Hill, ON}
+\resumeentry{Northern Shield Security - Security Professional}{Nov 2024 - Present}{Richmond Hill, ON}
 \resumebullet{Performed threat assessments and maintained incident documentation for high-value retail environments, coordinating security response with mall security teams.}
 
-\resumeentry{Apple -- Sales Specialist}{Oct 2023 -- April 2024}{Toronto, ON}
-\resumebullet{Translated complex technical concepts for 30--50 customers daily across Apple's product ecosystem while completing ongoing technical certification training.}
+\resumeentry{Apple - Sales Specialist}{Oct 2023 - April 2024}{Toronto, ON}
+\resumebullet{Translated complex technical concepts for 30-50 customers daily across Apple's product ecosystem while completing ongoing technical certification training.}
 
 % === SKILLS ===
 \resumesection{SKILLS}
 \noindent\textbf{Languages:} Python, Java, C/C++, JavaScript, TypeScript, Dart, SQL, SystemVerilog, HTML/CSS \\[1pt]
-\textbf{Frameworks:} Spring Boot, React.js, Flutter, Riverpod, Streamlit, Node.js, Express.js \\[1pt]
+\textbf{Frameworks:} Spring Boot, React.js, Flutter, Riverpod, Node.js, Express.js, Streamlit \\[1pt]
 \textbf{Data \& ML:} PyTorch, Scikit-learn, Pandas, NumPy, Matplotlib, NetworkX, Jupyter Notebooks \\[1pt]
-\textbf{Infrastructure:} Git, Docker, Docker Compose, Maven, Linux/macOS, CI/CD (GitHub Actions) \\[1pt]
+\textbf{Infrastructure:} Git, Docker, Docker Compose, Maven, Unix/Linux/macOS, CI/CD (GitHub Actions) \\[1pt]
 \textbf{Databases:} SQLite, MySQL, PostgreSQL, Supabase \\[1pt]
 \textbf{APIs \& Protocols:} REST APIs, WebSocket, SSE, JWT, OAuth, Discord/Telegram Bot APIs \\[1pt]
-\textbf{Tools:} Postman, Agile, JUnit, Playwright, Selenium, Excel/Numbers/Sheets \\[1pt]
+\textbf{Tools:} Postman, Agile, Jira, JUnit, Playwright, Selenium, Unix Shell, Data Structures \& Algorithms, Excel/Numbers/Sheets \\[1pt]
+\textbf{Interests:} Embedded Systems, Low-Level Systems, FPGA, Firmware, VHDL, x86, Deep Learning, AI/GPU, Azure, MongoDB, Django, Windows PowerShell, Perl, TCL, Ethernet, CAD, Mathematics, Specification, Gaming \\[1pt]
 \textbf{Spoken Languages:} French, Italian
 
 \end{document}
